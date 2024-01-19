@@ -1,62 +1,54 @@
-import { Button, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import { useState } from "react";
-const { Header, Sider, Content } = Layout;
-
-const sidebarMenuItem = [
-  {
-    key: "Dashboard",
-    label: "Dashboard",
-  },
-  {
-    key: "User Management",
-    label: "User Management",
-  },
-];
+import { Outlet } from "react-router-dom";
+import { menuItems } from "./MenuItem";
+const { Header, Sider, Content, Footer } = Layout;
 
 export const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
         <div
           style={{
-            height: "58px",
+            textAlign: "center",
             display: "flex",
+            height: "4rem",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <p style={{ color: "white", fontSize: "18px" }}>PH University</p>
+          <p style={{ color: "white", fontWeight: "bold" }}>PH University</p>
         </div>
+
         <Menu
           theme="dark"
-          mode="inline"
           defaultSelectedKeys={["1"]}
-          items={sidebarMenuItem}
+          mode="inline"
+          items={menuItems}
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: "" }}>
-          <Button
-            type="text"
-            icon={collapsed ? "➡️" : "⬅️"}
-            onClick={() => setCollapsed(!collapsed)}
+        <Header style={{ padding: 0, background: "" }} />
+        <Content style={{ margin: "0 16px" }}>
+          <div
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
+              padding: 24,
+              minHeight: 360,
+              // background: colorBgContainer,
+              // borderRadius: borderRadiusLG,
             }}
-          />
-        </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          This is the main content
+          >
+            <Outlet />
+          </div>
         </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );
