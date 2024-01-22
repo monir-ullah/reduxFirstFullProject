@@ -31,7 +31,7 @@ export const Login = () => {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:", errorInfo); // is any error found while submit the form will get error.
   };
   return (
     <section style={{ height: "100%", alignSelf: "center" }}>
